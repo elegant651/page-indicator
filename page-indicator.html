@@ -1,97 +1,91 @@
 <!--
     @license
-    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
-    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-    Code distributed by Google as part of the polymer project is also
-    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    Copyright (c) 2015 The Elegant Universe. All rights reserved.    
 -->
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-Element providing solution to no problem in particular.
+Element providing solution to viewing indicator for pages.
 
 ##### Example
 
-    <seed-element></seed-element>
+    <page-indicator></page-indicator>
 
-@element seed-element
-@blurb Element providing solution to no problem in particular.
+@element page-indicator
+@blurb Element providing solution to viewing indicator for pages.
 @status alpha
-@homepage http://polymerlabs.github.io/seed-element
+@homepage http://elegant651.github.io/page-indicator
 -->
-<polymer-element name="seed-element" attributes="notitle author">
-
+<polymer-element name="page-indicator" attributes="">
   <template>
+    <link rel="stylesheet" href="page-indicator.css">
 
-    <link rel="stylesheet" href="seed-element.css">
-
-    <h1>Hello from seed-element</h1>
-    <content></content>
-
+    <template repeat="{{indic in colIndicates}}">
+      <template if="{{indic.isCur}}">     
+        <div class="circle current"></div>
+      </template>
+      <template if="{{!indic.isCur}}">
+        <div class="circle"></div>
+      </template>
+    </template>
   </template>
 
   <script>
 
     Polymer({
-      /**
-       * The `author` attribute sets an initial author
-       *
-       * @attribute author
-       * @type string
-       * @default 'Dimitri Glazkov'
-       */
-      author: 'Dimitri Glazkov',
 
       /**
-       * `fancy` is a property that does something fancy.
+       * The `colIndicates` attribute sets an initial indicate collection
        *
-       * @property fancy
-       * @type bool
-       * @default false
+       * @attribute colIndicates
+       * @type array
+       * @default []
        */
-      fancy: false,
+      colIndicates: [],
 
-      ready: function() {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
+      /**
+       * The 'numSize' attribute sets an number of indicates
+       * 
+       * @attribute numSize
+       * @type integer
+       * default 1
+       */
+      numSize: 1,
+      /**
+       * The 'curIdx' attribute sets an current index of indicates
+       * 
+       * @attribute curIdx
+       * @type integer
+       * default 0
+       */
+      curIdx: 0,
+
+      created: function() {
+        this.colIndicates = [];
       },
 
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'seed-element says, ' + response;
+      domReady: function() {
+        this.initIndicators();
       },
 
-      /**
-       * The `seed-element-lasers-success` event is fired whenever we
-       * call fireLasers.
+       /**
+       * The `initIndicators` method will initialize indicators
        *
-       * @event seed-element-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
+       * @method initIndicators
        */
+      initIndicators: function() {
+        this.colIndicates = new Array(this.numSize);
+        for(var i=0; i < this.colIndicates.length; i++){
+          var isCur = false;
+          if(i==this.curIdx) isCur = true;
+          this.colIndicates[i] = {"idx": i, "isCur": isCur};
+        }
+      },
 
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function() {
-        this.fire('seed-element-lasers-success', { sound: 'Pew pew pew!' });
+      curIdxChanged: function() {
+        this.initIndicators();
       }
-
     });
-
   </script>
 
 </polymer-element>
