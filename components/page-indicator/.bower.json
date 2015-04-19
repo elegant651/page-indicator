@@ -1,0 +1,36 @@
+{
+  "name": "page-indicator",
+  "authors": [
+    "elegantuniv <korea651@gmail.com>"
+  ],
+  "description": "visible to page indicator",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "indicator"
+  ],
+  "main": "page-indicator.html",
+  "license": "MIT",
+  "homepage": "https://github.com/elegant651/page-indicator/",
+  "ignore": [
+    "/.*",
+    "/tests/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5.4"
+  },
+  "devDependencies": {
+    "web-component-tester": "*"
+  },
+  "_release": "31cf3cd067",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "31cf3cd06794ea37895f390c194fdbe8741f05ac"
+  },
+  "_source": "git://github.com/elegant651/page-indicator.git",
+  "_target": "master",
+  "_originalSource": "elegant651/page-indicator",
+  "_direct": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "page-indicator#gh-pages",
+  "private": true,
+  "dependencies": {
+    "page-indicator": "elegant651/page-indicator#master"
+  }
+}

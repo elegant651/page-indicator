@@ -1,0 +1,91 @@
+<!--
+    @license
+    Copyright (c) 2015 The Elegant Universe. All rights reserved.    
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element providing solution to viewing indicator for pages.
+
+##### Example
+
+    <page-indicator></page-indicator>
+
+@element page-indicator
+@blurb Element providing solution to viewing indicator for pages.
+@status alpha
+@homepage http://elegant651.github.io/page-indicator
+-->
+<polymer-element name="page-indicator" attributes="type color curIdx numSize" horizontal layout>
+  <template>
+    <link rel="stylesheet" href="page-indicator.css">
+
+    <template repeat="{{indic in colIndicates}}">
+      <template if="{{indic.isCur}}">     
+        <div class="circle current"></div>
+      </template>
+      <template if="{{!indic.isCur}}">
+        <div class="circle"></div>
+      </template>
+    </template>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      /**
+       * The `colIndicates` attribute sets an initial indicate collection
+       *
+       * @attribute colIndicates
+       * @type array
+       * @default []
+       */
+      colIndicates: [],
+
+      /**
+       * The 'numSize' attribute sets an number of indicates
+       * 
+       * @attribute numSize
+       * @type integer
+       * default 1
+       */
+      numSize: 1,
+      /**
+       * The 'curIdx' attribute sets an current index of indicates
+       * 
+       * @attribute curIdx
+       * @type integer
+       * default 0
+       */
+      curIdx: 0,
+
+      created: function() {
+        this.colIndicates = [];
+      },
+
+      domReady: function() {
+        this.initIndicators();
+      },
+
+       /**
+       * The `initIndicators` method will initialize indicators
+       *
+       * @method initIndicators
+       */
+      initIndicators: function() {
+        this.colIndicates = new Array(this.numSize);
+        for(var i=0; i < this.colIndicates.length; i++){
+          var isCur = false;
+          if(i==this.curIdx) isCur = true;
+          this.colIndicates[i] = {"idx": i, "isCur": isCur};
+        }
+      },
+
+      curIdxChanged: function() {
+        this.initIndicators();
+      }
+    });
+  </script>
+
+</polymer-element>
